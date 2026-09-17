@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Coroventis — See the full picture</title>
+<meta name="description" content="Coroventis builds CoroFlow, a platform for assessing epicardial and microvascular coronary physiology." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter+Tight:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a class="nav__brand" href="#top">COROVENTIS</a>
+  <div class="nav__links">
+    <a href="#coroflow">CoroFlow</a>
+    <a href="#science">Science</a>
+    <a href="#about">About</a>
+  </div>
+  <a class="nav__contact" href="#contact">Contact <span aria-hidden="true">↗</span></a>
+</nav>
+
+<main id="top">
+
+  <section class="scroll-scrub" id="hero" data-theme="dark">
+    <div class="scroll-scrub__stage">
+      <div class="scroll-scrub__media" aria-hidden="true"></div>
+
+      <div class="scroll-scrub__progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+      <div class="scroll-scrub__index" aria-hidden="true">
+        <span id="chapterIndex">01</span> / <span id="chapterTotal">04</span>
+      </div>
+
+      <div class="scroll-scrub__rail" aria-hidden="true">
+        <ol id="railList">
+          <li data-index="0" class="is-active"></li>
+          <li data-index="1"></li>
+          <li data-index="2"></li>
+          <li data-index="3"></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="scroll-scrub__story">
+
+      <article class="chapter" data-index="0" data-align="left">
+        <div class="chapter__pin">
+          <p class="eyebrow">CORONARY PHYSIOLOGY / UPPSALA, SWEDEN</p>
+          <h1 class="display display--xl">SEE THE<br />FULL<br />PICTURE</h1>
+          <p class="lede">Advanced assessment of epicardial and microvascular physiology, on one platform.</p>
+          <div class="actions">
+            <a class="btn btn--primary" href="#coroflow">Explore CoroFlow</a>
+            <a class="btn btn--ghost" href="#science">The science <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="chapter" data-index="1" data-align="left">
+        <div class="chapter__pin">
+          <p class="kicker">01 / EPICARDIAL PHYSIOLOGY</p>
+          <h2 class="display display--lg">WHAT WE<br />SEE</h2>
+          <p class="body">The large epicardial coronary arteries are what a standard angiogram was built to find — the visible part of the system.</p>
+        </div>
+      </article>
+
+      <article class="chapter" data-index="2" data-align="right">
+        <div class="chapter__pin">
+          <p class="kicker">02 / MICROCIRCULATION</p>
+          <h2 class="display display--lg">WHAT WE<br />DON'T</h2>
+          <p class="body">Beneath the surface, a network of microvessels regulates flow in ways a large-vessel view alone cannot resolve.</p>
+        </div>
+      </article>
+
+      <article class="chapter" data-index="3" data-align="left">
+        <div class="chapter__pin">
+          <p class="kicker">03 / COROFLOW</p>
+          <h2 class="display display--lg">THE FULL<br />PHYSIOLOGY</h2>
+          <p class="body">CoroFlow brings epicardial and microvascular assessment together, so the picture doesn't stop at what's easiest to see.</p>
+          <div class="actions">
+            <a class="btn btn--primary" href="#coroflow">Explore CoroFlow</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="statement" id="coroflow">
+    <p class="statement__eyebrow">SYSTEM / COROFLOW</p>
+    <h2 class="display display--word">COROFLOW</h2>
+    <p class="statement__sub">EPICARDIAL + MICROVASCULAR. One platform.</p>
+  </section>
+
+  <section class="taxonomy" id="science">
+    <div class="taxonomy__head">
+      <p class="kicker kicker--dark">04 / MEASUREMENTS</p>
+      <h2 class="display display--md">FULL<br />PHYSIOLOGY</h2>
+    </div>
+    <div class="taxonomy__grid">
+      <div class="taxonomy__row">
+        <span class="taxonomy__code">FFR</span>
+        <span class="taxonomy__name">Fractional Flow Reserve</span>
+        <span class="taxonomy__domain">Epicardial</span>
+      </div>
+      <div class="taxonomy__row">
+        <span class="taxonomy__code">RFR</span>
+        <span class="taxonomy__name">Resting Full-cycle Ratio</span>
+        <span class="taxonomy__domain">Epicardial</span>
+      </div>
+      <div class="taxonomy__row">
+        <span class="taxonomy__code">CFR</span>
+        <span class="taxonomy__name">Coronary Flow Reserve</span>
+        <span class="taxonomy__domain">Microvascular / combined</span>
+      </div>
+      <div class="taxonomy__row">
+        <span class="taxonomy__code">IMR</span>
+        <span class="taxonomy__name">Index of Microcirculatory Resistance</span>
+        <span class="taxonomy__domain">Microvascular</span>
+      </div>
+      <div class="taxonomy__row">
+        <span class="taxonomy__code">RRR</span>
+        <span class="taxonomy__name">Resistive Reserve Ratio</span>
+        <span class="taxonomy__domain">Microvascular</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <p class="kicker">05 / COROVENTIS</p>
+    <h2 class="display display--md">FROM<br />SCIENCE<br />TO SYSTEM.</h2>
+    <p class="about__coords">UPPSALA / SWEDEN</p>
+  </section>
+
+</main>
+
+<footer class="footer" id="contact">
+  <p class="footer__line">SEE THE FULL PICTURE.</p>
+  <h2 class="footer__wordmark">COROVENTIS</h2>
+  <nav class="footer__nav">
+    <a href="#coroflow">CoroFlow</a>
+    <a href="#science">Science</a>
+    <a href="#about">About</a>
+    <a href="#top">Back to top</a>
+  </nav>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
