@@ -40,7 +40,12 @@
 
   <section class="scroll-scrub" id="hero" data-theme="dark">
     <div class="scroll-scrub__stage">
-      <div class="scroll-scrub__media" aria-hidden="true"></div>
+      <div class="scroll-scrub__media" aria-hidden="true">
+        <picture>
+          <source media="(hover: none) and (pointer: coarse), (max-width: 860px)" srcset="assets/hero/hero-poster-mobile.jpg" />
+          <img class="scroll-scrub__poster" id="heroPoster" src="assets/hero/hero-poster.jpg" alt="" fetchpriority="high" decoding="async" />
+        </picture>
+      </div>
     </div>
 
     <div class="scroll-scrub__story">

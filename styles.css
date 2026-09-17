@@ -218,6 +218,7 @@ a { color: inherit; text-decoration: none; }
   inset: 0;
 }
 
+.scroll-scrub__poster,
 .scroll-scrub__video {
   position: absolute;
   inset: 0;
@@ -226,8 +227,10 @@ a { color: inherit; text-decoration: none; }
   object-fit: cover;
   object-position: 50% 50%;
   display: block;
-  z-index: 1;
 }
+
+.scroll-scrub__video { z-index: 1; }
+.scroll-scrub__media[data-video-painted="true"] .scroll-scrub__poster { visibility: hidden; }
 
 .scroll-scrub__stage::after {
   content: "";

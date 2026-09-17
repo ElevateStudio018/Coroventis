@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -23,6 +23,45 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # This runner has ordinary internet access, unlike the sandbox this
+      # site was built in — so this is where the Higgsfield hero clip
+      # actually gets downloaded and self-hosted, instead of hotlinking to
+      # Higgsfield's CDN (see references/scroll-scrub.md for the encode spec).
+      - name: Fetch and encode hero clip
+        run: |
+          set -euo pipefail
+          mkdir -p assets/hero
+          SRC="https://d8j0ntlcm91z4.cloudfront.net/user_3JMRCS5Gqr1i91oYJAjDfAzmWyZ/hf_20260917_184945_661a4ffa-b52b-43bf-8c55-3644b51ab13a.mp4"
+          if [ ! -f assets/hero/hero-desktop.mp4 ]; then
+            curl -fL --retry 3 -o /tmp/hero-source.mp4 "$SRC"
+            ffmpeg -v error -y -i /tmp/hero-source.mp4 -an \
+              -vf "unsharp=5:5:0.8:5:5:0.0" \
+              -c:v libx264 -preset slow -crf 20 -pix_fmt yuv420p \
+              -g 8 -keyint_min 8 -sc_threshold 0 -movflags +faststart \
+              assets/hero/hero-desktop.mp4
+            ffmpeg -v error -y -i /tmp/hero-source.mp4 -an \
+              -vf "scale=-2:'min(720,ih)',unsharp=5:5:0.6:5:5:0.0" \
+              -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p \
+              -g 4 -keyint_min 4 -sc_threshold 0 -movflags +faststart \
+              assets/hero/hero-mobile.mp4
+            ffmpeg -v error -y -ss 0 -i assets/hero/hero-desktop.mp4 \
+              -frames:v 1 -q:v 2 assets/hero/hero-poster.jpg
+            ffmpeg -v error -y -ss 0 -i assets/hero/hero-mobile.mp4 \
+              -frames:v 1 -q:v 2 assets/hero/hero-poster-mobile.jpg
+          fi
+
+      - name: Commit self-hosted assets
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain assets/hero)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add assets/hero
+            git commit -m "Self-host encoded hero clip (automated)"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
+          fi
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:

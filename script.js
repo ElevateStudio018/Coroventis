@@ -231,16 +231,12 @@
   const heroMedia = hero?.querySelector(".scroll-scrub__media");
   const chapters = hero ? [...hero.querySelectorAll(".chapter")] : [];
 
-  // Served directly from Higgsfield's CDN for now: this sandbox's network
-  // policy blocks outbound fetches to that CDN, so the clip can't be
-  // downloaded here to re-encode into local desktop/mobile variants and a
-  // poster (see references/scroll-scrub.md). Set video.src directly instead
-  // of fetching to a Blob, since plain cross-origin <video> seeking works
-  // without CORS (unlike fetch()/canvas access). Once this can be downloaded
-  // from a network with normal internet access, run the ffmpeg helper in
-  // that same reference doc and swap this for local self-hosted encodes.
-  const HERO_SRC =
-    "https://d8j0ntlcm91z4.cloudfront.net/user_3JMRCS5Gqr1i91oYJAjDfAzmWyZ/hf_20260917_184945_661a4ffa-b52b-43bf-8c55-3644b51ab13a.mp4";
+  // Self-hosted encodes produced by the deploy workflow's CI runner (which
+  // has ordinary internet access, unlike the sandbox this site is edited
+  // in) — see .github/workflows/deploy-pages.yml.
+  const HERO_DESKTOP_SRC = "assets/hero/hero-desktop.mp4";
+  const HERO_MOBILE_SRC = "assets/hero/hero-mobile.mp4";
+  const heroSourceFor = () => (isMobile() ? HERO_MOBILE_SRC : HERO_DESKTOP_SRC);
 
   let heroVideo = null;
   let heroLoading = false;
@@ -263,7 +259,7 @@
     el.preload = "auto";
     el.setAttribute("muted", "");
     el.setAttribute("playsinline", "");
-    el.src = HERO_SRC;
+    el.src = heroSourceFor();
 
     el.addEventListener(
       "loadedmetadata",
@@ -271,6 +267,13 @@
         if (heroVideo !== el) return;
         heroReady = true;
         heroLoading = false;
+      },
+      { once: true }
+    );
+    el.addEventListener(
+      "seeked",
+      () => {
+        if (heroVideo === el) heroMedia.dataset.videoPainted = "true";
       },
       { once: true }
     );
