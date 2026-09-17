@@ -11,6 +11,131 @@
   window.addEventListener("scroll", onNavScroll, { passive: true });
   onNavScroll();
 
+  /* ---- generic scroll reveal for [data-reveal] elements ---- */
+  if (!reduceMotionGlobal()) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+    );
+    document.querySelectorAll("[data-reveal]").forEach((el) => revealObserver.observe(el));
+  }
+
+  /* ---- generative visible/hidden vessel diagram ---- */
+  renderVesselDiagram();
+
+  function reduceMotionGlobal() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function renderVesselDiagram() {
+    const svg = document.getElementById("vesselDiagram");
+    if (!svg) return;
+
+    // Small seeded PRNG so the diagram is deterministic across reloads
+    // (avoids Math.random() reshuffling the network on every visit).
+    let seed = 1337;
+    const rand = () => {
+      seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+      return seed / 0x7fffffff;
+    };
+
+    const originX = 400;
+    const originY = 248;
+    const segments = [];
+
+    const branch = (x, y, angle, length, depth, maxDepth, spread, group) => {
+      const x2 = x + Math.cos(angle) * length;
+      const y2 = y + Math.sin(angle) * length;
+      segments.push({ x1: x, y1: y, x2, y2, depth, maxDepth, group });
+      if (depth >= maxDepth) return;
+      const count = depth < 1 ? 2 : rand() < 0.65 ? 2 : 1;
+      for (let i = 0; i < count; i++) {
+        const bias = count === 2 ? (i === 0 ? -1 : 1) : rand() < 0.5 ? -1 : 1;
+        const da = bias * spread * (0.35 + rand() * 0.65);
+        branch(x2, y2, angle + da, length * (0.66 + rand() * 0.12), depth + 1, maxDepth, spread, group);
+      }
+    };
+
+    // Visible: a sparse, thick, few-branch coronary-tree shape above the line.
+    branch(originX, originY, -Math.PI / 2, 78, 0, 3, 0.62, "visible");
+
+    // Hidden: several denser, finer roots fanning out below the line.
+    const hiddenRoots = [
+      -Math.PI / 2 - 0.9,
+      -Math.PI / 2 - 0.35,
+      -Math.PI / 2 + 0.35,
+      -Math.PI / 2 + 0.9,
+    ];
+    for (const rootAngle of hiddenRoots) {
+      branch(originX, originY, Math.PI + (-rootAngle), 46, 0, 6, 0.75, "hidden");
+    }
+
+    const ns = "http://www.w3.org/2000/svg";
+    const frag = document.createDocumentFragment();
+
+    for (const seg of segments) {
+      const line = document.createElementNS(ns, "line");
+      line.setAttribute("x1", seg.x1.toFixed(1));
+      line.setAttribute("y1", seg.y1.toFixed(1));
+      line.setAttribute("x2", seg.x2.toFixed(1));
+      line.setAttribute("y2", seg.y2.toFixed(1));
+
+      const t = seg.depth / seg.maxDepth;
+      if (seg.group === "visible") {
+        line.setAttribute("stroke", "color-mix(in srgb, var(--paper) 88%, transparent)");
+        line.setAttribute("stroke-width", String(3.2 - t * 2));
+      } else {
+        const useRed = seg.depth % 3 === 0;
+        line.setAttribute(
+          "stroke",
+          useRed
+            ? "color-mix(in srgb, var(--red) 55%, transparent)"
+            : "color-mix(in srgb, var(--cyan) 45%, transparent)"
+        );
+        line.setAttribute("stroke-width", String(1.6 - t * 1.1));
+        line.setAttribute("opacity", String(0.85 - t * 0.45));
+      }
+      line.setAttribute("stroke-linecap", "round");
+
+      const length = Math.hypot(seg.x2 - seg.x1, seg.y2 - seg.y1);
+      line.style.strokeDasharray = String(length);
+      line.style.strokeDashoffset = String(length);
+      line.style.transition = `stroke-dashoffset 700ms cubic-bezier(0.16,1,0.3,1) ${seg.depth * 70}ms`;
+
+      frag.appendChild(line);
+    }
+
+    svg.appendChild(frag);
+
+    const reveal = () => {
+      svg.querySelectorAll("line").forEach((line) => {
+        line.style.strokeDashoffset = "0";
+      });
+    };
+
+    if (reduceMotionGlobal()) {
+      reveal();
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            reveal();
+            io.disconnect();
+          }
+        },
+        { threshold: 0.2 }
+      );
+      io.observe(svg);
+    }
+  }
+
   /* ---- scroll-scrub hero controller ---- */
   const hero = document.getElementById("hero");
   if (!hero) return;

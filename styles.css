@@ -281,6 +281,102 @@ a { color: inherit; text-decoration: none; }
   .chapter[data-align="right"] .chapter__pin .body { margin-left: 0; }
 }
 
+/* ---- scroll reveal ---- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 550ms cubic-bezier(0.16, 1, 0.3, 1), transform 550ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---- divide (visible / hidden diagram) ---- */
+.divide {
+  position: relative;
+  z-index: 3;
+  background: var(--ink);
+  padding: clamp(4.5rem, 10vw, 7rem) clamp(1.25rem, 6vw, 6rem);
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4rem);
+}
+
+.divide__copy .body { color: var(--slate); }
+
+.divide__diagram {
+  position: relative;
+  max-width: 56rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.divide__diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.divide__waterline {
+  stroke: color-mix(in srgb, var(--paper) 30%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 3 6;
+}
+
+.divide__label {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--slate);
+}
+
+.divide__label--visible { top: 34%; left: 2%; }
+.divide__label--hidden { top: 45%; left: 2%; }
+
+.detail-box {
+  position: absolute;
+  right: 0;
+  bottom: 2%;
+  width: min(15rem, 42%);
+  border: 1px solid color-mix(in srgb, var(--paper) 22%, transparent);
+  padding: 0.9rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  background: color-mix(in srgb, var(--ink) 70%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.detail-box__title {
+  margin: 0 0 0.6rem;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+}
+
+.detail-box__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0.35rem 0 0;
+  color: var(--paper);
+}
+
+.detail-box__row span { color: var(--slate); }
+
+@media (max-width: 640px) {
+  .detail-box { position: static; width: 100%; margin-top: 1.25rem; }
+}
+
 /* ---- statement (COROFLOW) ---- */
 .statement {
   position: relative;
