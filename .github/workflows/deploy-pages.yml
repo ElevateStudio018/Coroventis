@@ -28,6 +28,13 @@ jobs:
       # site was built in — so this is where the Higgsfield hero clip
       # actually gets downloaded and self-hosted, instead of hotlinking to
       # Higgsfield's CDN (see references/scroll-scrub.md for the encode spec).
+      - name: Install ffmpeg
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+
       - name: Fetch and encode hero clip
         run: |
           set -euo pipefail
