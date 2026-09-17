@@ -12,6 +12,8 @@
 </head>
 <body>
 
+<div class="page-progress" id="pageProgress" aria-hidden="true"><span></span></div>
+
 <nav class="nav" id="nav">
   <a class="nav__brand" href="#top">COROVENTIS</a>
   <div class="nav__links">
@@ -22,26 +24,23 @@
   <a class="nav__contact" href="#contact">Contact <span aria-hidden="true">↗</span></a>
 </nav>
 
+<nav class="section-rail" aria-label="Page sections">
+  <span class="section-rail__index"><span id="railIndex">01</span> / 06</span>
+  <ol id="railList">
+    <li data-target="hero" class="is-active" aria-label="Full picture"></li>
+    <li data-target="divide" aria-label="Visible vs. hidden"></li>
+    <li data-target="coroflow" aria-label="CoroFlow"></li>
+    <li data-target="science" aria-label="Science"></li>
+    <li data-target="about" aria-label="About"></li>
+    <li data-target="contact" aria-label="Contact"></li>
+  </ol>
+</nav>
+
 <main id="top">
 
   <section class="scroll-scrub" id="hero" data-theme="dark">
     <div class="scroll-scrub__stage">
       <div class="scroll-scrub__media" aria-hidden="true"></div>
-
-      <div class="scroll-scrub__progress" aria-hidden="true"><span id="progressBar"></span></div>
-
-      <div class="scroll-scrub__index" aria-hidden="true">
-        <span id="chapterIndex">01</span> / <span id="chapterTotal">04</span>
-      </div>
-
-      <div class="scroll-scrub__rail" aria-hidden="true">
-        <ol id="railList">
-          <li data-index="0" class="is-active"></li>
-          <li data-index="1"></li>
-          <li data-index="2"></li>
-          <li data-index="3"></li>
-        </ol>
-      </div>
     </div>
 
     <div class="scroll-scrub__story">
@@ -88,32 +87,35 @@
     </div>
   </section>
 
-  <section class="divide" id="divide" data-reveal>
-    <div class="divide__copy">
-      <p class="kicker">04 / VISIBLE VS. HIDDEN</p>
-      <h2 class="display display--md">BENEATH<br />THE SURFACE</h2>
-      <p class="body">A coronary angiogram maps the vessels large enough to see. CoroFlow measures what's left.</p>
-    </div>
+  <section class="divide" id="divide">
+    <div class="divide__pin">
+      <div class="divide__copy" data-reveal>
+        <p class="kicker">04 / VISIBLE VS. HIDDEN</p>
+        <h2 class="display display--md">BENEATH<br />THE SURFACE</h2>
+        <p class="body">A coronary angiogram maps the vessels large enough to see. Keep scrolling — CoroFlow measures what's left.</p>
+      </div>
 
-    <div class="divide__diagram">
-      <svg id="vesselDiagram" viewBox="0 0 800 620" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        <line class="divide__waterline" x1="40" y1="248" x2="760" y2="248" />
-      </svg>
-      <span class="divide__label divide__label--visible">VISIBLE — EPICARDIAL</span>
-      <span class="divide__label divide__label--hidden">HIDDEN — MICROVASCULAR</span>
+      <div class="divide__diagram">
+        <svg id="vesselDiagram" viewBox="0 0 800 620" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <line class="divide__waterline" x1="40" y1="248" x2="760" y2="248" />
+        </svg>
+        <span class="divide__label divide__label--visible">VISIBLE — EPICARDIAL</span>
+        <span class="divide__label divide__label--hidden">HIDDEN — MICROVASCULAR</span>
+        <span class="divide__depth" id="divideDepth">DEPTH 00 / 06</span>
 
-      <div class="detail-box">
-        <p class="detail-box__title">SYSTEM / COROFLOW</p>
-        <p class="detail-box__row"><span>EPICARDIAL</span>FFR / RFR / Pd·Pa</p>
-        <p class="detail-box__row"><span>MICROVASCULAR</span>CFR / IMR / RRR</p>
+        <div class="detail-box">
+          <p class="detail-box__title">SYSTEM / COROFLOW</p>
+          <p class="detail-box__row"><span>EPICARDIAL</span>FFR / RFR / Pd·Pa</p>
+          <p class="detail-box__row"><span>MICROVASCULAR</span>CFR / IMR / RRR</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="statement" id="coroflow" data-reveal>
-    <p class="statement__eyebrow">SYSTEM / COROFLOW</p>
-    <h2 class="display display--word">COROFLOW</h2>
-    <p class="statement__sub">EPICARDIAL + MICROVASCULAR. One platform.</p>
+  <section class="statement" id="coroflow">
+    <p class="statement__eyebrow" data-reveal>SYSTEM / COROFLOW</p>
+    <h2 class="display display--word" data-reveal style="transition-delay: 100ms">COROFLOW</h2>
+    <p class="statement__sub" data-reveal style="transition-delay: 220ms">EPICARDIAL + MICROVASCULAR. One platform.</p>
   </section>
 
   <section class="taxonomy" id="science">
