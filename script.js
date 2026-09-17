@@ -261,7 +261,6 @@
     el.muted = true;
     el.playsInline = true;
     el.preload = "auto";
-    el.crossOrigin = "anonymous";
     el.setAttribute("muted", "");
     el.setAttribute("playsinline", "");
     el.src = HERO_SRC;
