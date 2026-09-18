@@ -28,8 +28,10 @@
   const railList = document.getElementById("railList");
   const railItems = railList ? [...railList.querySelectorAll("li")] : [];
   const railIndexEl = document.getElementById("railIndex");
+  const railLabelEl = document.getElementById("railLabel");
 
   const SECTION_IDS = ["hero", "divide", "coroflow", "science", "about", "contact"];
+  const SECTION_LABELS = ["OVERVIEW", "MICROVASCULAR", "COROFLOW", "PHYSIOLOGY", "COMPANY", "CONTACT"];
   const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean);
   let activeSectionIndex = -1;
   let sectionTops = [];
@@ -58,7 +60,10 @@
     if (next === activeSectionIndex) return;
     activeSectionIndex = next;
     railItems.forEach((li, i) => li.classList.toggle("is-active", i === next));
-    if (railIndexEl) railIndexEl.textContent = String(next + 1).padStart(2, "0");
+    if (railIndexEl) {
+      railIndexEl.textContent = String(next + 1).padStart(2, "0");
+    }
+    if (railLabelEl) railLabelEl.textContent = SECTION_LABELS[next];
     const id = SECTION_IDS[next];
     navLinks.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === `#${id}`));
   };

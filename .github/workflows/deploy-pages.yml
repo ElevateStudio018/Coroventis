@@ -39,7 +39,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p assets/hero
-          SRC="https://d8j0ntlcm91z4.cloudfront.net/user_3JMRCS5Gqr1i91oYJAjDfAzmWyZ/hf_20260917_184945_661a4ffa-b52b-43bf-8c55-3644b51ab13a.mp4"
+          SRC="https://d8j0ntlcm91z4.cloudfront.net/user_3JMRCS5Gqr1i91oYJAjDfAzmWyZ/hf_20260918_001049_f2a1063d-bb2e-4fb8-9cf9-20fde62d17bb.mp4"
           if [ ! -f assets/hero/hero-desktop.mp4 ]; then
             curl -fL --retry 3 -o /tmp/hero-source.mp4 "$SRC"
             ffmpeg -v error -y -i /tmp/hero-source.mp4 -an \
