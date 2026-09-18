@@ -285,7 +285,29 @@ a { color: inherit; text-decoration: none; }
   pointer-events: none;
 }
 
+.chapter__pin::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ink) 88%, transparent) 0%,
+    color-mix(in srgb, var(--ink) 70%, transparent) 45%,
+    transparent 78%
+  );
+}
+
 .chapter[data-align="right"] .chapter__pin { align-items: flex-end; text-align: right; }
+.chapter[data-align="right"] .chapter__pin::before {
+  background: linear-gradient(
+    270deg,
+    color-mix(in srgb, var(--ink) 88%, transparent) 0%,
+    color-mix(in srgb, var(--ink) 70%, transparent) 45%,
+    transparent 78%
+  );
+}
 .chapter[data-align="right"] .chapter__pin .lede,
 .chapter[data-align="right"] .chapter__pin .body { margin-left: auto; }
 
