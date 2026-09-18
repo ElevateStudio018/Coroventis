@@ -97,6 +97,18 @@ jobs:
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
 
+      # styles.css and script.js are always requested under the same
+      # filename, so a browser (or the Pages CDN) can keep serving a stale
+      # cached copy after a deploy. Stamping every deploy's commit SHA onto
+      # both references forces a fresh fetch every time, with no manual
+      # version bump to remember. This edits the build output only, not the
+      # committed source files.
+      - name: Cache-bust styles.css and script.js
+        run: |
+          set -euo pipefail
+          v="${GITHUB_SHA::8}"
+          sed -i "s/styles\.css\"/styles.css?v=$v\"/; s/script\.js\"/script.js?v=$v\"/" index.html coroflow.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
