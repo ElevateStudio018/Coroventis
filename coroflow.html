@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CoroFlow — Coroventis</title>
+<meta name="description" content="CoroFlow Cardiovascular System: a platform for complete cardiac characterization, epicardial and microvascular, built to work with Abbott's wireless PressureWire X." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter+Tight:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="page-progress" id="pageProgress" aria-hidden="true"><span></span></div>
+
+<nav class="nav" id="nav">
+  <a class="nav__brand" href="index.html"><img src="assets/brand/coroventis-logo.png" alt="Coroventis" width="200" height="37" /></a>
+  <div class="nav__links">
+    <a href="coroflow.html" class="is-active">CoroFlow</a>
+    <a href="index.html#science">Science</a>
+    <a href="index.html#about">About</a>
+  </div>
+  <a class="nav__contact" href="index.html#contact">Contact <span aria-hidden="true">↗</span></a>
+</nav>
+
+<main id="top">
+
+  <section class="cf-hero">
+    <p class="eyebrow">SYSTEM / COROFLOW</p>
+    <h1 class="display display--xl">COROFLOW</h1>
+    <p class="cf-hero__lede">
+      CoroFlow Cardiovascular System is an advanced platform for assessment of
+      <strong>both epicardial and microvascular physiology</strong>. Designed
+      to communicate with Abbott's wireless PressureWire&reg; X, CoroFlow is
+      easy to use for daily clinical practice at the same time as it provides
+      powerful tools for advanced physiology.
+    </p>
+    <div class="cf-partners">
+      <img src="assets/coroflow/logo-abbott.png" alt="Abbott" />
+      <span>+</span>
+      <img src="assets/coroflow/logo-coroventis.png" alt="Coroventis" />
+    </div>
+    <div class="actions">
+      <a class="btn btn--primary" href="index.html#contact">Get in touch</a>
+      <a class="btn btn--ghost" href="index.html">Back to overview <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="cf-section" id="assessment">
+    <div class="cf-section__head" data-reveal>
+      <p class="kicker">01 / PHYSIOLOGY</p>
+      <h2 class="display display--md">ONE SYSTEM,<br />THE FULL PICTURE</h2>
+      <p class="body">Epicardial and microvascular assessment side by side, plus ventricle function — so one pullback doesn't have to stand in for the whole picture.</p>
+    </div>
+
+    <div class="cf-assessment__grid">
+      <div data-reveal>
+        <p class="cf-assessment__title">Epicardial assessment</p>
+        <ul class="cf-assessment__list">
+          <li>FFR, RFR, Pd/Pa</li>
+          <li>Pullback</li>
+          <li>Serial lesions*</li>
+        </ul>
+      </div>
+
+      <div class="cf-card" data-reveal style="transition-delay: 80ms">
+        <img src="assets/coroflow/vessel-diagram.png" alt="Epicardial vessel with microvascular branching, illustrating visible and hidden coronary physiology" />
+      </div>
+
+      <div data-reveal style="transition-delay: 120ms">
+        <p class="cf-assessment__title">Microvascular assessment</p>
+        <ul class="cf-assessment__list">
+          <li>IMR, RRR</li>
+          <li>CFR, PB-CFR</li>
+          <li>Absolute Flow/Resistance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cf-ventricle">
+      <div class="cf-card" data-reveal>
+        <img src="assets/coroflow/heart-ventricle.png" alt="Cross-section illustration of the heart's ventricles" />
+      </div>
+      <div data-reveal style="transition-delay: 80ms">
+        <p class="cf-assessment__title">Ventricle function</p>
+        <ul class="cf-assessment__list">
+          <li>Contractility, dP/dt</li>
+          <li>Diastolic function, EDP, Tau</li>
+          <li>Valve physiology*</li>
+        </ul>
+      </div>
+    </div>
+    <p class="cf-assessment__foot">* In development</p>
+  </section>
+
+  <section class="cf-section cf-section--tonal" id="features">
+    <div class="cf-section__head" data-reveal>
+      <p class="kicker">02 / CAPABILITIES</p>
+      <h2 class="display display--md">COMPLETE CARDIAC<br />CHARACTERIZATION</h2>
+    </div>
+    <div class="cf-features__grid">
+      <div class="cf-features__item" data-reveal><span>Epicardial</span>FFR, Pd/Pa, RFR</div>
+      <div class="cf-features__item" data-reveal style="transition-delay: 40ms"><span>Combined</span>PB-CFR</div>
+      <div class="cf-features__item" data-reveal style="transition-delay: 80ms"><span>Microvascular</span>CFR / IMR / RRR</div>
+      <div class="cf-features__item" data-reveal style="transition-delay: 120ms"><span>Physiology</span>Absolute Flow/Resistance</div>
+      <div class="cf-features__item" data-reveal style="transition-delay: 160ms"><span>Ventricle</span>dP/dt, EDP, Tau</div>
+      <div class="cf-features__item" data-reveal style="transition-delay: 200ms"><span>Workflow</span>Wireless lab integration</div>
+      <div class="cf-features__item" data-reveal style="transition-delay: 240ms"><span>Interop</span>DICOM Worklist / PACS storage</div>
+      <div class="cf-features__item" data-reveal style="transition-delay: 280ms"><span>Data</span>Automated study data management</div>
+    </div>
+  </section>
+
+  <section class="cf-section" id="hardware">
+    <div class="cf-hardware">
+      <div class="cf-card" data-reveal>
+        <img src="assets/coroflow/pressurewire-device.png" alt="Abbott wireless PressureWire X guidewire and transmitter" />
+      </div>
+      <div class="cf-hardware__copy" data-reveal style="transition-delay: 80ms">
+        <p class="kicker">03 / HARDWARE</p>
+        <h2 class="display display--md">BUILT FOR<br />PRESSUREWIRE&reg; X</h2>
+        <p class="body">CoroFlow communicates directly with Abbott's wireless PressureWire X, with live waveform review, recording replay and CFR/IMR calculation on one screen — in the room, or from the control room.</p>
+      </div>
+    </div>
+    <div class="cf-card" data-reveal style="margin-top: 3rem;">
+      <img src="assets/coroflow/console-screenshot.png" alt="CoroFlow console showing live FFR, Pd/Pa, CFR and IMR waveforms" />
+    </div>
+  </section>
+
+  <section class="cf-section cf-section--tonal" id="installation">
+    <div class="cf-section__head" data-reveal>
+      <p class="kicker">04 / DEPLOYMENT</p>
+      <h2 class="display display--md">INSTALLATION<br />FLEXIBILITY</h2>
+    </div>
+    <div class="cf-installation__grid">
+      <div class="cf-installation__card" data-reveal>
+        <div class="cf-card"><img src="assets/coroflow/lab-integration-photo.png" alt="CoroFlow display mounted on an angiography table and C-arm" /></div>
+        <h3>Lab integration</h3>
+        <p>Optimal workflow &amp; PW utilization.</p>
+        <p>No cables. Installation with no lab downtime.</p>
+      </div>
+      <div class="cf-installation__card" data-reveal style="transition-delay: 80ms">
+        <div class="cf-card"><img src="assets/coroflow/mobility-cart-photo.png" alt="CoroFlow mobile cart with touch-screen monitor" /></div>
+        <h3>Mobility</h3>
+        <p>Multi-room, touch screen.</p>
+        <p>Rechargeable — no cables.</p>
+      </div>
+      <div class="cf-installation__card" data-reveal style="transition-delay: 160ms">
+        <div class="cf-card"><img src="assets/coroflow/laptop-photo.png" alt="CoroFlow running on a laptop for research use" /></div>
+        <h3>Research flexibility</h3>
+        <p>Laptop / Surface / Workstations.</p>
+        <div class="cf-note">
+          <span aria-hidden="true">!</span>
+          <span>Not inside patient environment (&gt;1.5m from patient)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cf-diagram-card" data-reveal>
+      <p class="cf-assessment__title">CoroFlow lab integration</p>
+      <div class="cf-card">
+        <img src="assets/coroflow/lab-integration-diagram.png" alt="Diagram of CoroFlow lab integration: control room workstation, CoroHub receiver, wireless PressureWire, Wi-Box and remote control to the cathlab" />
+      </div>
+      <p class="body" style="margin-top: 1.5rem; max-width: 42rem;">
+        The workstation and CoroHub receiver stay in the control room; the
+        display, PressureWire, Wi-Box and remote control stay in the
+        cathlab — connected wirelessly across the room boundary, with a
+        live video feed back to the control room monitor.
+      </p>
+    </div>
+  </section>
+
+  <section class="cf-section" id="data">
+    <div class="cf-section__head" data-reveal>
+      <p class="kicker">05 / DATA</p>
+      <h2 class="display display--md">DATA<br />MANAGEMENT</h2>
+      <p class="body">From the DICOM worklist to an anonymized export — CoroFlow handles the study data pipeline end to end.</p>
+    </div>
+
+    <div class="cf-data__grid">
+      <div class="cf-data__row" data-reveal>
+        <div class="cf-card">
+          <img src="assets/coroflow/data-management-flow.png" alt="Data flow diagram: DICOM worklist to CoroFlow to PACS image archive, with raw data synced through a cloud or network database" />
+        </div>
+      </div>
+      <div class="cf-data__row" data-reveal style="transition-delay: 80ms">
+        <div class="cf-card">
+          <img src="assets/coroflow/data-table-flow.png" alt="Diagram: baseline characteristics indexed automatically, then filtered and anonymized for export to Excel or Matlab" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="contact" data-reveal>
+  <p class="footer__line">SEE THE FULL PICTURE.</p>
+  <h2 class="footer__wordmark">COROVENTIS</h2>
+  <nav class="footer__nav">
+    <a href="coroflow.html">CoroFlow</a>
+    <a href="index.html#science">Science</a>
+    <a href="index.html#about">About</a>
+    <a href="#top">Back to top</a>
+  </nav>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -662,6 +662,235 @@ a { color: inherit; text-decoration: none; }
 
 .footer__nav a:hover { color: var(--cyan); }
 
+/* ---- coroflow product page ---- */
+.cf-hero {
+  position: relative;
+  z-index: 3;
+  background: var(--ink);
+  padding: clamp(7.5rem, 14vw, 11rem) clamp(1.25rem, 6vw, 6rem) clamp(4rem, 8vw, 6rem);
+}
+
+.cf-hero__lede {
+  max-width: 42rem;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--slate);
+  margin: 1.5rem 0 0;
+}
+
+.cf-hero__lede strong { color: var(--paper); font-weight: 500; }
+
+.cf-partners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2.75rem;
+  padding: 1.25rem clamp(1.25rem, 3vw, 2rem);
+  background: #fff;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.cf-partners img { display: block; height: clamp(28px, 4vw, 34px); width: auto; }
+.cf-partners span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper-ink) 45%, transparent);
+}
+
+.cf-section {
+  position: relative;
+  z-index: 3;
+  background: var(--ink);
+  padding: clamp(4rem, 9vw, 6.5rem) clamp(1.25rem, 6vw, 6rem);
+}
+
+.cf-section--tonal { background: var(--ink-3); }
+.cf-section--paper { background: var(--paper); color: var(--paper-ink); }
+.cf-section--paper .kicker { color: color-mix(in srgb, var(--paper-ink) 55%, transparent); }
+.cf-section--paper .display { color: var(--paper-ink); }
+.cf-section--paper .body { color: color-mix(in srgb, var(--paper-ink) 70%, transparent); }
+
+.cf-section__head { max-width: 42rem; margin-bottom: clamp(2.5rem, 6vw, 3.5rem); }
+.cf-section__head .body { margin-top: 1.25rem; }
+
+.cf-card {
+  background: #fff;
+  border-radius: 4px;
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cf-card img { display: block; width: 100%; height: auto; }
+
+.cf-assessment__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.cf-assessment__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.cf-assessment__list li {
+  font-size: 0.95rem;
+  color: var(--slate);
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.cf-assessment__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  background: var(--cyan);
+}
+
+.cf-assessment__title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--paper);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--paper) 30%, transparent);
+  text-underline-offset: 0.3em;
+  margin: 0 0 1rem;
+}
+
+.cf-assessment__foot {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--slate) 70%, transparent);
+  margin-top: 0.5rem;
+}
+
+.cf-ventricle {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  margin-top: clamp(3rem, 6vw, 4rem);
+  padding-top: clamp(3rem, 6vw, 4rem);
+  border-top: 1px solid color-mix(in srgb, var(--paper) 12%, transparent);
+}
+
+@media (max-width: 860px) {
+  .cf-assessment__grid { grid-template-columns: 1fr; }
+  .cf-assessment__grid .cf-card { max-width: 20rem; margin: 0 auto; }
+  .cf-ventricle { grid-template-columns: 1fr; }
+  .cf-ventricle .cf-card { max-width: 12rem; margin: 0 auto; }
+}
+
+.cf-features__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: color-mix(in srgb, var(--paper) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--paper) 12%, transparent);
+}
+
+.cf-features__item {
+  background: var(--ink-3);
+  padding: 1.5rem 1.5rem;
+  font-size: 0.92rem;
+  color: var(--paper);
+}
+
+.cf-features__item span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 860px) {
+  .cf-features__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+  .cf-features__grid { grid-template-columns: 1fr; }
+}
+
+.cf-hardware {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.cf-hardware__copy .body { max-width: 34rem; }
+
+@media (max-width: 860px) {
+  .cf-hardware { grid-template-columns: 1fr; }
+}
+
+.cf-installation__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2rem);
+}
+
+.cf-installation__card .cf-card { min-height: 14rem; margin-bottom: 1.5rem; }
+.cf-installation__card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
+}
+.cf-installation__card p {
+  font-size: 0.9rem;
+  color: var(--slate);
+  margin: 0.35rem 0 0;
+}
+
+.cf-note {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  background: color-mix(in srgb, var(--red) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--red) 30%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--paper) 90%, transparent);
+}
+
+@media (max-width: 860px) {
+  .cf-installation__grid { grid-template-columns: 1fr; }
+}
+
+.cf-diagram-card { margin-top: 2.5rem; }
+.cf-diagram-card .cf-card { padding: clamp(1rem, 3vw, 2rem); }
+
+.cf-data__grid {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.cf-data__row .cf-section__head { margin-bottom: 1.75rem; }
+
 /* ---- reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
   .chapter { min-height: 100dvh !important; }
