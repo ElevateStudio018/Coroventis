@@ -401,7 +401,7 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
-/* ---- iceberg scroll-scrub (secondary, portrait video) ---- */
+/* ---- iceberg scroll-scrub (secondary, full-bleed video) ---- */
 .iceberg-scrub {
   position: relative;
   z-index: 3;
@@ -413,19 +413,12 @@ a { color: inherit; text-decoration: none; }
   position: sticky;
   top: 0;
   height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
 .iceberg-scrub__frame {
-  position: relative;
-  height: min(88dvh, 760px);
-  aspect-ratio: 9 / 16;
-  overflow: hidden;
-  border-radius: 6px;
-  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7);
+  position: absolute;
+  inset: 0;
 }
 
 .iceberg-scrub__poster,
@@ -435,6 +428,12 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Source is a tall portrait clip cropped into this wide frame — far too
+     tall for one static crop to ever show both "DO YOU SEE" (near the top)
+     and "THE FULL PICTURE?" (near the bottom) at once. Poster shows the
+     opening framing; the video's own object-position is panned by JS as
+     the scrub progresses (see updateIcebergVideo). */
+  object-position: 50% 0%;
   display: block;
 }
 
@@ -446,14 +445,9 @@ a { color: inherit; text-decoration: none; }
 
 .iceberg-scrub__frame[data-video-painted="true"] .iceberg-scrub__poster { visibility: hidden; }
 
-@media (max-width: 640px) {
-  .iceberg-scrub__frame { height: min(80dvh, 640px); border-radius: 0; box-shadow: none; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .iceberg-scrub { min-height: auto; }
-  .iceberg-scrub__stage { position: relative; height: auto; padding: clamp(3rem, 8vw, 5rem) 0; }
-  .iceberg-scrub__frame { height: min(80dvh, 640px); }
+  .iceberg-scrub { min-height: 60dvh; }
+  .iceberg-scrub__stage { position: relative; height: 60dvh; }
 }
 
 /* ---- divide (visible / hidden diagram, scroll-pinned reveal) ---- */

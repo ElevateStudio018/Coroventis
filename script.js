@@ -473,6 +473,13 @@
         /* keep last painted frame while the browser catches up */
       }
     }
+    // The wide crop can never fit both "DO YOU SEE" (near the top of the
+    // portrait source) and "THE FULL PICTURE?" (near the bottom) at once.
+    // Both lines only appear in the source's final third, so hold the crop
+    // top-aligned (showing the tip breaking the surface) until then, and
+    // pan down through that last stretch to land on the payoff line.
+    const panProgress = clamp((icebergCurrent - 0.6) / 0.35, 0, 1);
+    icebergVideo.style.objectPosition = `50% ${(panProgress * 75).toFixed(1)}%`;
   };
 
   /* =================================================================
