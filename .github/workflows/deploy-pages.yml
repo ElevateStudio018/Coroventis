@@ -69,6 +69,34 @@ jobs:
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
 
+      # One-time fetch of Higgsfield-upscaled versions of three CoroFlow
+      # product images (the sandbox this site is edited in can't reach
+      # Higgsfield's CDN — same reason the hero clip is fetched here).
+      # Guarded by a marker file so this only ever runs once.
+      - name: Fetch upscaled CoroFlow images
+        run: |
+          set -euo pipefail
+          if [ ! -f assets/coroflow/.upscaled-v1 ]; then
+            curl -fL --retry 3 -o assets/coroflow/console-screenshot.png \
+              "https://d8j0ntlcm91z4.cloudfront.net/user_3JMRCS5Gqr1i91oYJAjDfAzmWyZ/hf_20260918_095308_7ff4ec5e-f9ed-47cd-866f-f80f7ab9ab70.png"
+            curl -fL --retry 3 -o assets/coroflow/pressurewire-device.png \
+              "https://d8j0ntlcm91z4.cloudfront.net/user_3JMRCS5Gqr1i91oYJAjDfAzmWyZ/hf_20260918_095558_b65142f2-2be9-426a-a31c-2821fd2751a3.png"
+            curl -fL --retry 3 -o assets/coroflow/vessel-diagram.png \
+              "https://d8j0ntlcm91z4.cloudfront.net/user_3JMRCS5Gqr1i91oYJAjDfAzmWyZ/hf_20260918_095719_cb90f857-6429-4522-af0d-cc8c53b6f29f.png"
+            touch assets/coroflow/.upscaled-v1
+          fi
+
+      - name: Commit upscaled CoroFlow images
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain assets/coroflow)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add assets/coroflow
+            git commit -m "Self-host upscaled CoroFlow images (automated)"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
+          fi
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
