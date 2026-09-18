@@ -318,7 +318,12 @@
       const rect = chapter.getBoundingClientRect();
       end = rect.top + pageY - heroRootTop + rect.height;
     }
-    heroTotal = Math.max(end, window.innerHeight);
+    // The sticky stage un-pins one viewport-height before the story's
+    // full scroll range ends (its containing block runs out then), so
+    // the scrub range must finish there too — otherwise the video's
+    // final seconds (the microvascular reveal payoff) fly past uncontrolled
+    // after the stage has already left the viewport.
+    heroTotal = Math.max(end - window.innerHeight, window.innerHeight);
   };
 
   const updateHeroScroll = () => {
@@ -331,14 +336,23 @@
       // A subtle parallax drift on each chapter's own text while it's
       // pinned — never touches opacity, so it can't fight the natural
       // sticky "squeeze" transition as a chapter's block runs out of
-      // room and the next section's sticky panel takes over.
+      // room and the next section's sticky panel takes over. Applied to
+      // the pin's children, not the pin itself: the pin's box (and its
+      // ::before scrim) must stay untransformed so adjacent chapters'
+      // pins still meet edge-to-edge with no gap at the handoff — a
+      // transform on the pin box shifts the scrim along with the text,
+      // which briefly tears open a gap of raw, unscrimmed video right
+      // at the seam between two chapters.
       for (const chapter of chapters) {
         const rect = chapter.getBoundingClientRect();
         const start = rect.top + pageY - heroRootTop;
         const local = clamp((y - start) / Math.max(rect.height, 1));
         const pin = chapter.querySelector(".chapter__pin");
         if (!pin) continue;
-        pin.style.transform = `translateY(${(local - 0.5) * -18}px)`;
+        const offset = `translateY(${(local - 0.5) * -18}px)`;
+        for (const child of pin.children) {
+          child.style.transform = offset;
+        }
       }
     }
 
@@ -351,7 +365,10 @@
     if (!heroVideo || !heroReady || heroVideo.seeking) return;
     heroCurrent += (heroTarget - heroCurrent) * 0.2;
     const targetTime = clamp(heroCurrent, 0, 0.999) * (heroVideo.duration || 1);
-    const epsilon = isMobile() ? 0.02 : 0.008;
+    // Match roughly one source frame (video is 24fps): seeking finer than
+    // that just spams overlapping currentTime writes without producing any
+    // new visible frame.
+    const epsilon = isMobile() ? 0.035 : 0.03;
     if (Math.abs(heroVideo.currentTime - targetTime) > epsilon) {
       try {
         heroVideo.currentTime = targetTime;

@@ -96,7 +96,15 @@ a { color: inherit; text-decoration: none; }
   backdrop-filter: blur(8px);
 }
 
-.nav__brand { font-weight: 500; }
+.nav__brand { display: flex; align-items: center; font-weight: 500; }
+.nav__brand img {
+  display: block;
+  height: clamp(16px, 2.6vw, 20px);
+  width: auto;
+  /* The source lockup is dark-on-transparent; flatten to a single tone
+     so it reads against the dark nav instead of disappearing into it. */
+  filter: brightness(0) invert(1);
+}
 
 .nav__links { display: flex; gap: clamp(1rem, 2.5vw, 2.25rem); }
 .nav__links a:hover { color: var(--cyan); }
@@ -238,9 +246,17 @@ a { color: inherit; text-decoration: none; }
   object-fit: cover;
   object-position: 50% 50%;
   display: block;
+  /* Tames blown highlights and any seek/compression flicker in the
+     scrubbed footage so bright moments read as moody, not harsh. */
+  filter: brightness(0.8) contrast(1.06) saturate(1.05);
 }
 
-.scroll-scrub__video { z-index: 1; }
+.scroll-scrub__video {
+  z-index: 1;
+  /* Own GPU compositing layer, since it's repainted on every scroll tick. */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
 .scroll-scrub__media[data-video-painted="true"] .scroll-scrub__poster { visibility: hidden; }
 
 .scroll-scrub__stage::after {
@@ -256,10 +272,10 @@ a { color: inherit; text-decoration: none; }
     ),
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--ink) 55%, transparent) 0%,
-      transparent 20%,
-      transparent 65%,
-      color-mix(in srgb, var(--ink) 70%, transparent) 100%
+      color-mix(in srgb, var(--ink) 60%, transparent) 0%,
+      color-mix(in srgb, var(--ink) 30%, transparent) 22%,
+      color-mix(in srgb, var(--ink) 30%, transparent) 60%,
+      color-mix(in srgb, var(--ink) 75%, transparent) 100%
     );
   pointer-events: none;
 }
