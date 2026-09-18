@@ -718,9 +718,8 @@ a { color: inherit; text-decoration: none; }
 .cf-section__head .body { margin-top: 1.25rem; }
 
 .cf-card {
-  background: #fff;
-  border-radius: 4px;
-  padding: clamp(1rem, 2.5vw, 1.75rem);
+  /* Images here are transparent PNGs — no card chrome behind them,
+     they sit directly on the section's own background. */
   display: flex;
   align-items: center;
   justify-content: center;
