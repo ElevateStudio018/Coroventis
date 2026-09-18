@@ -401,6 +401,61 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
+/* ---- iceberg scroll-scrub (secondary, portrait video) ---- */
+.iceberg-scrub {
+  position: relative;
+  z-index: 3;
+  background: var(--ink);
+  min-height: 280dvh;
+}
+
+.iceberg-scrub__stage {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.iceberg-scrub__frame {
+  position: relative;
+  height: min(88dvh, 760px);
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7);
+}
+
+.iceberg-scrub__poster,
+.iceberg-scrub__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.iceberg-scrub__video {
+  z-index: 1;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.iceberg-scrub__frame[data-video-painted="true"] .iceberg-scrub__poster { visibility: hidden; }
+
+@media (max-width: 640px) {
+  .iceberg-scrub__frame { height: min(80dvh, 640px); border-radius: 0; box-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iceberg-scrub { min-height: auto; }
+  .iceberg-scrub__stage { position: relative; height: auto; padding: clamp(3rem, 8vw, 5rem) 0; }
+  .iceberg-scrub__frame { height: min(80dvh, 640px); }
+}
+
 /* ---- divide (visible / hidden diagram, scroll-pinned reveal) ---- */
 .divide {
   position: relative;

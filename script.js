@@ -30,8 +30,8 @@
   const railIndexEl = document.getElementById("railIndex");
   const railLabelEl = document.getElementById("railLabel");
 
-  const SECTION_IDS = ["hero", "divide", "coroflow", "science", "about", "contact"];
-  const SECTION_LABELS = ["OVERVIEW", "MICROVASCULAR", "COROFLOW", "PHYSIOLOGY", "COMPANY", "CONTACT"];
+  const SECTION_IDS = ["hero", "iceberg", "divide", "coroflow", "science", "about", "contact"];
+  const SECTION_LABELS = ["OVERVIEW", "ICEBERG", "MICROVASCULAR", "COROFLOW", "PHYSIOLOGY", "COMPANY", "CONTACT"];
   const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean);
   let activeSectionIndex = -1;
   let sectionTops = [];
@@ -379,6 +379,103 @@
   };
 
   /* =================================================================
+   * Iceberg scroll-scrub — a second, simpler scroll-scrubbed video:
+   * one continuous portrait clip with its message burned in, no
+   * chapters, just scroll-driven playback of the reveal.
+   * ================================================================= */
+  const iceberg = document.getElementById("iceberg");
+  const icebergFrame = iceberg?.querySelector(".iceberg-scrub__frame");
+  const ICEBERG_SRC = "assets/iceberg/iceberg.mp4";
+
+  let icebergVideo = null;
+  let icebergLoading = false;
+  let icebergReady = false;
+  let icebergFailed = false;
+  let icebergTarget = 0;
+  let icebergCurrent = 0;
+  let icebergRootTop = 0;
+  let icebergTotal = 1;
+
+  const loadIcebergClip = () => {
+    if (!icebergFrame || reduceMotion || icebergLoading || icebergReady || icebergFailed) return;
+    icebergLoading = true;
+
+    const el = document.createElement("video");
+    el.className = "iceberg-scrub__video";
+    el.muted = true;
+    el.playsInline = true;
+    el.preload = "auto";
+    el.setAttribute("muted", "");
+    el.setAttribute("playsinline", "");
+    el.src = ICEBERG_SRC;
+
+    el.addEventListener(
+      "loadedmetadata",
+      () => {
+        if (icebergVideo !== el) return;
+        icebergReady = true;
+        icebergLoading = false;
+      },
+      { once: true }
+    );
+    el.addEventListener(
+      "seeked",
+      () => {
+        if (icebergVideo === el) icebergFrame.dataset.videoPainted = "true";
+      },
+      { once: true }
+    );
+    el.addEventListener(
+      "error",
+      () => {
+        if (icebergVideo !== el) return;
+        el.remove();
+        icebergVideo = null;
+        icebergFailed = true;
+        icebergLoading = false;
+        icebergReady = false;
+      },
+      { once: true }
+    );
+
+    icebergFrame.appendChild(el);
+    icebergVideo = el;
+  };
+
+  const layoutIceberg = () => {
+    if (!iceberg) return;
+    const pageY = window.scrollY;
+    icebergRootTop = iceberg.getBoundingClientRect().top + pageY;
+    // Same sticky-unpin math as the hero: the stage releases one
+    // viewport-height before the section's own height is exhausted.
+    icebergTotal = Math.max(iceberg.offsetHeight - window.innerHeight, window.innerHeight);
+  };
+
+  const updateIcebergScroll = () => {
+    if (!iceberg) return;
+    const pageY = window.scrollY;
+    const y = clamp(pageY - icebergRootTop, 0, icebergTotal);
+    icebergTarget = y / icebergTotal;
+    if (y > -window.innerHeight && y < icebergTotal + window.innerHeight) {
+      loadIcebergClip();
+    }
+  };
+
+  const updateIcebergVideo = () => {
+    if (!icebergVideo || !icebergReady || icebergVideo.seeking) return;
+    icebergCurrent += (icebergTarget - icebergCurrent) * 0.2;
+    const targetTime = clamp(icebergCurrent, 0, 0.999) * (icebergVideo.duration || 1);
+    const epsilon = isMobile() ? 0.035 : 0.03;
+    if (Math.abs(icebergVideo.currentTime - targetTime) > epsilon) {
+      try {
+        icebergVideo.currentTime = targetTime;
+      } catch {
+        /* keep last painted frame while the browser catches up */
+      }
+    }
+  };
+
+  /* =================================================================
    * Shared ticker — one scroll listener, one rAF loop driving every
    * scroll-linked effect on the page.
    * ================================================================= */
@@ -388,6 +485,7 @@
   const layoutAll = () => {
     layoutSections();
     layoutHero();
+    layoutIceberg();
     layoutDivide();
     dirty = true;
   };
@@ -415,9 +513,11 @@
       updatePageProgress();
       updateSectionRail();
       updateHeroScroll();
+      updateIcebergScroll();
       updateDivideReveal();
     }
     updateHeroVideo();
+    updateIcebergVideo();
     window.requestAnimationFrame(tick);
   };
 
